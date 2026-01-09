@@ -26,21 +26,23 @@ public class Monster {
         return monsterDesc;
     }
 
-    // --- Stridslogik ---
+    public int getDamage() {
+        return damage;
+    }
+
+            // Stridslogik
 
     // Metod för att attackera spelaren
     public void attack(Player player) {
-        System.out.println(this.name + " attackerar dig och gör " + this.damage + " skada.");
         player.takeDamage(this.damage);
     }
 
-    // Metod för att skada monstret
+    // Metod för att ta skada
     public void takeDamage(int amount) {
         this.healthPoints -= amount;
         if (this.healthPoints < 0) {
             this.healthPoints = 0;
         }
-        System.out.println("Du attackerar " + this.name + " och gör " + amount + " skada.");
     }
 
     // Metod för att kolla om monstret är vid liv

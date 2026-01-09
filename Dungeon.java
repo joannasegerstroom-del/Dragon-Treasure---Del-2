@@ -37,41 +37,6 @@ public class Dungeon {
             // Visar nuvarande rums beskrivning
             currentRoom.doNarrative();
 
-            // Hanterar föremål (Om det finns något i rummet)
-            Item item = currentRoom.getItem();
-            if (item != null) {
-                System.out.println("För att plocka upp " + item.getName() + ", tryck [P]");
-                String svar = scanner.nextLine();
-                if (svar.equalsIgnoreCase("P")) {
-                    player.addItem(item);
-                    System.out.println("Du plockade upp " + item.getName());
-                    currentRoom.removeItem(); // Tar bort saken från rummet
-                }
-            }
-
-            // Frågar spelaren om vilken dörr de vill ta
-            System.out.print("Välj en dörr att gå igenom: ");
-            String input = scanner.nextLine().trim().toUpperCase();
-
-            // Dricka potion om spelaren har någon
-            if (input.equalsIgnoreCase("D")) {
-                
-                // Kollar om spelaren har någon potion
-                Potion potionToUse = null;
-                for (Item invItem : player.getInventory()) {
-                    if (invItem instanceof Potion) {
-                        potionToUse = (Potion) invItem;
-                        break;
-                    }
-                }
-
-                if (potionToUse != null) {
-                    player.usePotion(potionToUse);
-                } else {
-                    System.out.println("Du har ingen potion att dricka.");
-                }
-            }
-
             // Hanterar Monster & Strid
             Monster monster = currentRoom.getMonster();
             if (monster != null && monster.isAlive()) {
@@ -83,6 +48,31 @@ public class Dungeon {
                     break;
                 }
             }
+
+            // Hanterar föremål (Om det finns något i rummet)
+            Item item = currentRoom.getItem();
+            if (item != null) {
+                System.out.print("För att plocka upp " + item.getName() + ", tryck [P]: ");
+                String svar = scanner.nextLine().trim().toUpperCase();
+                if (svar.equalsIgnoreCase("P")) {
+                    player.addItem(item);
+                    System.out.println("Du plockade upp " + item.getName());
+                    currentRoom.removeItem(); // Tar bort saken från rummet
+
+                    // Dricka potion om spelaren har någon
+                    if (item.getName().equals("Hälsopotion")) {
+                        player.usePotion((Potion) item);
+                    } 
+                }
+            }
+        
+            // Visar vilka dörrar som finns
+            currentRoom.doDoors();
+
+            // Frågar spelaren om vilken dörr de vill ta
+            System.out.print("Välj en dörr att gå igenom: ");
+            String input = scanner.nextLine().trim().toUpperCase();
+
 
             // Avslutar spelet om spelaren trycker [Q] "Quit"
             if (input.equals("Q")) {
@@ -104,7 +94,7 @@ public class Dungeon {
                             door.setLocked(false);
                             currentRoom = door.getNextRoom();
                         } else {
-                            System.out.println("Dörren är låst! Du behöver en nyckel.");
+                            System.out.println("Dörren är låst! Du behöver en nyckel. Du kikar in genom nyckelhålet och ser en skattkista fylld med guld.");
                         }
                     } else {
                         currentRoom = door.getNextRoom();

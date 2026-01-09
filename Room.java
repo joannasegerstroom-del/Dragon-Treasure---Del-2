@@ -68,6 +68,10 @@ public class Room {
         if (monster != null && monster.isAlive()) {
             System.out.println("VARNING: " + monster.getMonsterDesc());
         }
+    }
+
+    // doDoors: Visar vilka dörrar som finns i rummet
+    public void doDoors() {
 
         System.out.println("Tillgängliga dörrar:");
         
@@ -82,17 +86,16 @@ public class Room {
             String directionText = "";
             
             switch (position) {
-                case 'N': directionText = "Norrut "; break;
-                case 'S': directionText = "Söderut "; break;
+                case 'N': directionText = "Norrut   "; break;
+                case 'S': directionText = "Söderut  "; break;
                 case 'V': directionText = "Västerut "; break;
-                case 'O': directionText = "Österut "; break;
+                case 'O': directionText = "Österut  "; break;
                 default: directionText = "Okänd riktning";
             }
 
-            System.out.println("Väderstreck: " + directionText + d.getPosition());
+            System.out.println(directionText + d.getPosition());
         }
     }
-
     // doBattle: Hanterar striden mellan spelaren och monstret i rummet
     public void doBattle(Player player) {
         // Om inget monster finns eller det är dött, gör ingenting
@@ -100,13 +103,12 @@ public class Room {
             return;
         }
 
-        System.out.println("STRID!");
-
         // Striden pågår så länge båda lever
         while (player.isAlive() && monster.isAlive()) {
             
             // 1. Monstret attackerar först
-            monster.attack(player);
+            System.out.println("VARNING! " + monster.getName() + " attackerar dig och gör " + monster.getDamage() + " skada");
+        player.takeDamage(monster.getDamage());
 
             // Om spelaren dör, avbryt direkt
             if (!player.isAlive()) {
@@ -115,8 +117,9 @@ public class Room {
             }
 
             // 2. Spelaren attackerar tillbaka automatiskt
-            monster.takeDamage(player.getDamage());
-        }
+            System.out.println("Du attackerar " + monster.getName() + " och gör " + player.getDamage() + " skada");
+        monster.takeDamage(player.getDamage());
+    }
 
         // Efter striden
         if (player.isAlive()) {

@@ -8,7 +8,7 @@ public class DragonTreasure {
         // Välkomstmeddelande och spelarens namn
         Scanner input = new Scanner(System.in);
         System.out.println("Välkommen till Dragon Treasure!");
-        System.out.print("Skriv ditt namn och tryck på [Enter] för att starta");
+        System.out.print("Skriv ditt namn och tryck på [Enter] för att starta ");
 
         String playerName = input.nextLine();
 
@@ -28,10 +28,10 @@ public class DragonTreasure {
         Room startRoom = new Room("Välkommen " + player.getName() + " till din skattjakt!\nDu står utanför en grotta. Det luktar svavel från öppningen.\nGrottöppningen är österut. Skriv [O] och tryck på [Enter] för att komma in i grottan.");
         Room room2 = new Room("När du går in i grottan kollapsar ingången bakom dig!\nRummet är upplyst av några ljus som sitter på ett bord framför dig.");
         Room room3 = new Room("Du ser en död kropp på golvet.");
-        Room room4 = new Room("Du ser en brinnande fackla i rummets ena hörn och känner en motbjudande stank.");
+        Room room4 = new Room("Du ser en brinnande fackla i rummets ena hörn och känner en motbjudande stank.\nDu ser en utgång i öster [O].");
         Room room5 = new Room ("Du kommer in i ett fuktigt rum med vatten sipprandes längs den västra väggen.\nDu ser en låst dörr i öster [O]");
         Room room6 = new Room("Du kommer in i ett rymligt bergrum med en ljusstrimma sipprandes genom en spricka i den östra väggen.");
-        Room skattRoom = new Room("Du har ingen nyckel som passar.\nDu kikar genom nyckelhålet och ser en skattkista fylld med guld.");
+        Room skattRoom = new Room("Du kom in i rummet där skatten är gömd!");
         Room utgångRoom = new Room("Du lämnar grottan med livet i behåll.\nGrattis " + player.getName() + ", du förlorade inte!");
 
         // Lägger till föremål och monster i rummen
@@ -88,6 +88,10 @@ public class DragonTreasure {
         // En låst dörr österut som leder till skatt rummet
         Door room5ToSkattRoom = new Door('O', true, skattRoom);
         room5.addDoor(room5ToSkattRoom);
+        // Koppling: Skatt Room -> Room 5
+        // En olåst dörr västerut som leder till rum 5 (Vägen tillbaka)
+        Door skattRoomToRoom5 = new Door('V', false, room5);
+        skattRoom.addDoor(skattRoomToRoom5);
         // Koppling: Room 5 -> Room 4
         // En olåst dörr norrut som leder till rum 4 (Vägen tillbaka)
         Door room5ToRoom4 = new Door('N', false, room4);
