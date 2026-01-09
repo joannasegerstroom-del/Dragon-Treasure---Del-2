@@ -101,4 +101,3 @@ Därefter navigerar du igenom grottan genom att skriva in bokstaven för det vä
 - **`O`** – Gå österut  
 - **`Q`** – Avsluta spelet  
 - **`P`** - Plocka upp item
-- **`D`** - Använda item
