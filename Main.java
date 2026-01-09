@@ -2,8 +2,8 @@ public class Main {
 
      /* 
     Författare: Valentino Markouch, Oscar Dahl, Joanna Segerström
-    Datum: 2025-12-13
-    Version: 1.0
+    Datum: 2026-01-08
+    Version: 2.0
      */
 
     
