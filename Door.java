@@ -28,4 +28,8 @@ public class Door {
     public Room getNextRoom() {
         return nextRoom;
     }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
 }

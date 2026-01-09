@@ -8,14 +8,15 @@ public class Player {
     private ArrayList<Item> inventory; // Aggregation till Item
 
     // Konstruktor
-    public Player(String name) {
+    public Player(String name, int healthPoints, int damage) {
         this.name = name;
-        this.healthPoints = 10; // Startvärde
-        this.damage = 1;        // Startvärde (utan vapen)
+        this.healthPoints = healthPoints;
+        this.damage = damage;
         this.inventory = new ArrayList<>();
     }
 
-    // --- Getters & Setters ---
+             // Getters
+
     public String getName() {
         return name;
     }
@@ -32,18 +33,17 @@ public class Player {
         return inventory;
     }
 
-    // --- Spel-logik ---
+             // Spel-logik
 
     // Metod för att plocka upp ett föremål
-    public void pickUpItem(Item item) {
+    public void addItem(Item item) {
         inventory.add(item);
-        System.out.println("Du plockade upp: " + item.getName());
 
         // Om föremålet är ett vapen, öka spelarens skada
         if (item instanceof Weapon) {
             Weapon w = (Weapon) item;
             this.damage += w.getIncreaseDamage();
-            System.out.println("Du gör nu " + this.damage + " i skada.");
+            System.out.println("Du gör nu " + this.damage + " poäng i skada.");
         }
     }
 
@@ -60,10 +60,10 @@ public class Player {
         }
     }
 
-    // Metod för att kolla om spelaren har en nyckel
-    public boolean hasKey() {
-        for (Item i : inventory) {
-            if (i instanceof Key) {
+    // Metod för att kolla om spelaren har ett specifikt föremål
+    public boolean hasItem(String itemName) {
+        for (Item item : inventory) {
+            if (item.getName().equalsIgnoreCase(itemName)) {
                 return true;
             }
         }

@@ -13,20 +13,36 @@ public class DragonTreasure {
         String playerName = input.nextLine();
 
         // Skapar spelaren och dungeon
-        Player player = new Player(playerName);
+        Player player = new Player(playerName, 10,1);
         Dungeon dungeon = new Dungeon();
+
+        // Skapar föremål och monster
+        Item key = new Key("Nyckel", "en rostig nyckel");
+        Item treasure = new Treasure("Skatt", "en kista fylld med guld och juveler", 100);
+        Item sword = new Weapon("Svärd", "ett vasst svärd som ökar antalet skada", 1);
+        Item potion = new Potion("Hälsopotion", "en magisk dryck som återställer din hälsa", 6);
+        Monster monster = new Monster("Monster", 8, 1, "ett skrämmande monster med vassa tänder");
+        Monster dragon = new Dragon("Drake", 18, 1, "en eldsprutande drake som vaktar skatten");
 
         //Skapar rummen
         Room startRoom = new Room("Välkommen " + player.getName() + " till din skattjakt!\nDu står utanför en grotta. Det luktar svavel från öppningen.\nGrottöppningen är österut. Skriv [O] och tryck på [Enter] för att komma in i grottan.");
-        Room room2 = new Room("När du går in i grottan kollapsar ingången bakom dig!\nRummet är upplyst av några ljus som sitter på ett bord framför dig.\nDu kan gå norrut [N]\nDu kan gå söderut [S]");
-        Room room3 = new Room("Du ser en död kropp på golvet.\nDu kan gå söderut [S]\nDu kan gå österut [O]");
-        Room room4 = new Room("Du ser en brinnande fackla i rummets ena hörn och känner en motbjudande stank.\nDu ser en utgång österut.\nDu kan gå västerut [V]\nDu kan gå söderut [S]");
-        Room room5 = new Room ("Du kommer in i ett fuktigt rum med vatten sipprandes längs den västra väggen.\nDu ser en låst dörr i öster [O]\nDu kan gå norrut [N]\nDu kan gå västerut [V]");
-        Room room6 = new Room("Du kommer in i ett rymligt bergrum med en ljusstrimma sipprandes genom en spricka i den östra väggen.\nDu kan gå norrut [N]\nDu kan gå österut [O]");
-        Room skattRoom = new Room("Du har ingen nyckel som passar.\nDu kikar genom nyckelhålet och ser en skattkista fylld med guld.\nDu kan gå norrut [N]\n Du kan gå västerut [V]");
+        Room room2 = new Room("När du går in i grottan kollapsar ingången bakom dig!\nRummet är upplyst av några ljus som sitter på ett bord framför dig.");
+        Room room3 = new Room("Du ser en död kropp på golvet.");
+        Room room4 = new Room("Du ser en brinnande fackla i rummets ena hörn och känner en motbjudande stank.");
+        Room room5 = new Room ("Du kommer in i ett fuktigt rum med vatten sipprandes längs den västra väggen.\nDu ser en låst dörr i öster [O]");
+        Room room6 = new Room("Du kommer in i ett rymligt bergrum med en ljusstrimma sipprandes genom en spricka i den östra väggen.");
+        Room skattRoom = new Room("Du har ingen nyckel som passar.\nDu kikar genom nyckelhålet och ser en skattkista fylld med guld.");
         Room utgångRoom = new Room("Du lämnar grottan med livet i behåll.\nGrattis " + player.getName() + ", du förlorade inte!");
 
-        // --- Skapar dörrar och kopplar ihop rummen ---
+        // Lägger till föremål och monster i rummen
+        room3.setItem(sword);
+        room4.setMonster(monster);
+        room5.setItem(potion);
+        room6.setItem(key);
+        skattRoom.setMonster(dragon);
+        skattRoom.setItem(treasure);
+
+        // Skapar dörrar och kopplar ihop rummen
 
         // Koppling: Start Room -> Room 2
         // En olåst dörr österut som leder till rum 2
